@@ -1,36 +1,27 @@
-const feather = require('feather-icons');
-const { compose, toPairs, fromPairs, map, camelCase, upperFirst, filter, includes, sortBy } = require('lodash/fp');
+const { compose, toPairs, map, camelCase, upperFirst, sortBy } = require('lodash/fp');
 const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
 const { transform } = require('babel-core');
 const writeFile = promisify(fs.writeFile);
-const { getCustomIcons } = require('./customIcons');
-const whitelist = require('./whitelist');
-const aliased = require('./aliased');
-
+const { getIcons } = require('./icons');
 const pascalCase = compose(
     upperFirst,
     camelCase
-);
-const filterWhitelisted = compose(
-    fromPairs,
-    filter(([name]) => includes(name, whitelist)),
-    toPairs
 );
 const outputPath = path.resolve(__dirname, 'dist');
 const outputPathEs5 = path.resolve(__dirname, 'dist-es5');
 const outputPathTypings = path.resolve(__dirname, 'typings');
 
-getIcons()
+getAllIcons()
     .then(write)
     .catch(error => {
         console.error(error);
         process.exit(1);
     });
 
-async function getIcons() {
-    const [customIcons] = await Promise.all([getCustomIcons()]);
+async function getAllIcons() {
+    const [customIcons] = await Promise.all([getIcons()]);
     const makePascalCase = map(([name, icon]) => [pascalCase('icon-' + name), icon]);
     const mapTemplate = templateFn => map(([name, icon]) => [name, templateFn(name, icon)]);
 
@@ -40,8 +31,6 @@ async function getIcons() {
             makePascalCase,
             toPairs
         )({
-            ...filterWhitelisted(feather.icons),
-            ...getAliased(),
             ...customIcons,
         }),
     ]);
@@ -59,14 +48,6 @@ export default function ${name}(props) {
     );
 }
 `;
-}
-
-function getAliased() {
-    return compose(
-        fromPairs,
-        map(([originalName, newName]) => [newName, feather.icons[originalName]]),
-        toPairs
-    )(aliased);
 }
 
 function write(icons) {

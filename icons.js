@@ -74,8 +74,8 @@ const camelCaseAttributes = svg => {
         .toString();
 };
 
-async function getCustomIcons() {
-    const files = await glob('custom/*.svg');
+async function getIcons() {
+    const files = await glob('icons/*.svg');
     const icons = await Promise.all(map(mapIcon)(files));
     return fromPairs(icons);
 }
@@ -93,5 +93,5 @@ async function mapIcon(iconPath) {
 }
 
 module.exports = {
-    getCustomIcons,
+    getIcons,
 };
