@@ -42,7 +42,7 @@ import style from '../style';
 
 export default function ${name}(props) {
     return (
-        <svg style={props.customStyle || style} className={props.className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" preserveAspectRatio="xMaxYMid slice" focusable="false" data-featherico>
+        <svg style={props.customStyle || style} className={props.className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" preserveAspectRatio="xMaxYMid slice" focusable="false" data-cabanaico>
             ${icon}
         </svg>
     );
@@ -76,10 +76,10 @@ function writeIcon([name, icon]) {
 }
 
 function writeTypings(names) {
-    const exports = map(n => `export var ${n}: React.ComponentType<Featherico>`, names).join('\n');
+    const exports = map(n => `export var ${n}: React.ComponentType<Cabanaico>`, names).join('\n');
     const typings = `import * as React from 'react'
 
-export type Featherico = {
+export type Cabanaico = {
     small?: boolean,
     className?: string
 }
