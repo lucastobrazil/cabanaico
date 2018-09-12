@@ -1,27 +1,23 @@
 const feather = require('feather-icons');
-const {
-    compose,
-    toPairs,
-    fromPairs,
-    map,
-    forEach,
-    camelCase,
-    upperFirst,
-    filter,
-    includes,
-    sortBy,
-} = require('lodash/fp');
+const { compose, toPairs, fromPairs, map, camelCase, upperFirst, filter, includes, sortBy } = require('lodash/fp');
 const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
 const { transform } = require('babel-core');
 const writeFile = promisify(fs.writeFile);
-const { getBadgeIcons, getCustomIcons } = require('./customIcons');
+const { getCustomIcons } = require('./customIcons');
 const whitelist = require('./whitelist');
 const aliased = require('./aliased');
 
-const pascalCase = compose(upperFirst, camelCase);
-const filterWhitelisted = compose(fromPairs, filter(([name]) => includes(name, whitelist)), toPairs);
+const pascalCase = compose(
+    upperFirst,
+    camelCase
+);
+const filterWhitelisted = compose(
+    fromPairs,
+    filter(([name]) => includes(name, whitelist)),
+    toPairs
+);
 const outputPath = path.resolve(__dirname, 'dist');
 const outputPathEs5 = path.resolve(__dirname, 'dist-es5');
 const outputPathTypings = path.resolve(__dirname, 'typings');
@@ -34,17 +30,20 @@ getIcons()
     });
 
 async function getIcons() {
-    const [customIcons, badgeIcons] = await Promise.all([getCustomIcons(), getBadgeIcons()]);
+    const [customIcons] = await Promise.all([getCustomIcons()]);
     const makePascalCase = map(([name, icon]) => [pascalCase('icon-' + name), icon]);
     const mapTemplate = templateFn => map(([name, icon]) => [name, templateFn(name, icon)]);
 
     return compose(sortBy(([name]) => name))([
-        ...compose(mapTemplate(template), makePascalCase, toPairs)({
+        ...compose(
+            mapTemplate(template),
+            makePascalCase,
+            toPairs
+        )({
             ...filterWhitelisted(feather.icons),
             ...getAliased(),
             ...customIcons,
         }),
-        ...compose(mapTemplate(badgeTemplate), makePascalCase, toPairs)(badgeIcons),
     ]);
 }
 
@@ -62,33 +61,12 @@ export default function ${name}(props) {
 `;
 }
 
-function badgeTemplate(name, icon) {
-    return `import React from 'react';
-
-var style = { verticalAlign: 'middle' };
-
-export default function ${name}(props) {
-    if (props.small) {
-        return (
-            <svg width="14" height="14" className={props.className} style={style}>
-                ${icon.small}
-            </svg>
-        );
-    } else {
-        return (
-            <svg width="20" height="20" className={props.className} style={style}>
-                ${icon.large}
-            </svg>
-        );
-    }
-}
-`;
-}
-
 function getAliased() {
-    return compose(fromPairs, map(([originalName, newName]) => [newName, feather.icons[originalName]]), toPairs)(
-        aliased
-    );
+    return compose(
+        fromPairs,
+        map(([originalName, newName]) => [newName, feather.icons[originalName]]),
+        toPairs
+    )(aliased);
 }
 
 function write(icons) {

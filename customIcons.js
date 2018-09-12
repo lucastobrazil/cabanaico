@@ -2,7 +2,7 @@ const { promisify } = require('util');
 const glob = promisify(require('glob'));
 const path = require('path');
 const fs = require('fs');
-const { concat, curry, map, forEach, keys, fromPairs, camelCase, includes, toArray, reduce } = require('lodash/fp');
+const { curry, map, forEach, keys, fromPairs, camelCase, includes, toArray } = require('lodash/fp');
 const cheerio = require('cheerio');
 const SVGO = require('svgo');
 const svgo = new SVGO({
@@ -74,21 +74,10 @@ const camelCaseAttributes = svg => {
         .toString();
 };
 
-const reduceBadgeIcons = reduce((acc, [fullName, svg]) => {
-    const [_, name, size] = fullName.match(/(.*)-(.*)/);
-    return { ...acc, [name]: { ...(acc[name] || {}), [size]: svg } };
-}, {});
-
 async function getCustomIcons() {
     const files = await glob('custom/*.svg');
     const icons = await Promise.all(map(mapIcon)(files));
     return fromPairs(icons);
-}
-
-async function getBadgeIcons() {
-    const files = await glob('badges/*.svg');
-    const icons = await Promise.all(map(mapBadgeIcon)(files));
-    return reduceBadgeIcons(icons);
 }
 
 async function loadIcon(iconPath) {
@@ -103,12 +92,6 @@ async function mapIcon(iconPath) {
     return [name, cleanSvg(optimized)];
 }
 
-async function mapBadgeIcon(iconPath) {
-    const [name, optimized] = await loadIcon(iconPath);
-    return [name, camelCaseAttributes(optimized)];
-}
-
 module.exports = {
     getCustomIcons,
-    getBadgeIcons,
 };
