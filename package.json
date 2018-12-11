@@ -4,16 +4,15 @@
     "main": "dist-es5/index.js",
     "module": "dist/index.js",
     "typings": "typings/index.d.ts",
-    "description": "Icon set for Small Improvements. Based on feather, exported as React components.",
+    "description": "Icon set for Cabana Icons. Based on Symbolicons, exported as React components.",
     "keywords": [
         "icons",
-        "feather",
-        "small improvements",
+        "symbolicons",
         "react"
     ],
-    "author": "Kolja Lange",
+    "author": "Lucas Arundell / Kolja Lange",
     "license": "MIT",
-    "repository": "SmallImprovements-OpenSource/cabanaico",
+    "repository": "https://github.com/lucastobrazil/cabanaico",
     "scripts": {
         "build-icons": "rimraf dist dist-es5 typings && mkdirp dist dist-es5 typings && node buildIcons",
         "build-example": "rimraf example && mkdirp example && babel-node --presets react,env buildExample",
