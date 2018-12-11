@@ -17,7 +17,7 @@ deploy:
   skip_cleanup: true
   acl: public-read
   on:
-    repo: SmallImprovements-OpenSource/cabanaico
+    repo: https://github.com/lucastobrazil/cabanaico
     all_branches: true
 after_deploy: node publishExample
 branches:

@@ -1,6 +1,6 @@
 # Cabanaico
 
-Cabanaico is the icon library used in the [Small Improvements](https://www.small-improvements.com) web application. It takes most icons from the excellent [Feather](https://github.com/cabanaicons/feather), adds some custom icons and exports them all as React components. The generation of React components is inspired by [react-feather](https://github.com/carmelopullara/react-feather).
+Cabanaico is the icon library used in the [Cabana Design System](https://www,cabanadesignsystem.com). It takes a folder of SVG icons (some from the excellent [Symbolicons](http://symbolicons.com), adds some custom icons and exports them all as React components. This library could not be possible without the awesome work of the Small Improvements Open Source team - particularly [Featherico](https://github.com/SmallImprovements-OpenSource/featherico).
 
 ## Usage
 
@@ -9,7 +9,7 @@ npm install cabanaico
 ```
 
 ```js
-import { IconModulePraise } from 'cabanaico';
+import { IconActivityRings } from 'cabanaico';
 
-// <IconModulePraise />
+// <IconActivityRings />
 ```
