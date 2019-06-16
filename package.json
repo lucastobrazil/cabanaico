@@ -1,10 +1,10 @@
 {
     "name": "cabanaico",
-    "version": "0.0.2-development",
+    "version": "1.0.0",
     "main": "dist-es5/index.js",
     "module": "dist/index.js",
     "typings": "typings/index.d.ts",
-    "description": "Icon set for Cabana Icons. Based on Symbolicons, exported as React components.",
+    "description": "Icon set for Cabana Icons. Based on Eva icons, exported as React components.",
     "keywords": [
         "icons",
         "symbolicons",
