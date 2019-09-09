@@ -1,9 +1,9 @@
 {
     "name": "cabanaico",
     "version": "1.0.0",
-    "main": "dist/index.cjs.js",
-    "module": "dist/index.esm.js",
-    "types": "dist/index.d.ts",
+    "main": "dist-es5/index.js",
+    "module": "dist/index.js",
+    "typings": "typings/index.d.ts",
     "description": "Icon set for Cabana Icons. Based on Eva icons, exported as React components.",
     "keywords": [
         "icons",
@@ -14,10 +14,10 @@
     "license": "MIT",
     "repository": "https://github.com/lucastobrazil/cabanaico",
     "scripts": {
-        "build-icons": "rimraf dist && mkdirp dist types && node buildIcons",
+        "build-icons": "rimraf dist dist-es5 typings && mkdirp dist dist-es5 typings && node buildIcons",
         "build-example": "rimraf example && mkdirp example && babel-node --presets react,env buildExample",
         "semantic-release": "semantic-release",
-        "prepare": "npm run build-icons"
+	"prepare": "npm run build-icons"
     },
     "peerDependencies": {
         "react": "^15.0.0 || ^16.0.0"
