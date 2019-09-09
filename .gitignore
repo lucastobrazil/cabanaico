@@ -2,6 +2,7 @@ node_modules
 dist
 dist-es5
 typings
+types/
 example
 .DS_Store
 .idea/

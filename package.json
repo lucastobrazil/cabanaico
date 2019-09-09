@@ -14,7 +14,7 @@
     "license": "MIT",
     "repository": "https://github.com/lucastobrazil/cabanaico",
     "scripts": {
-        "build-icons": "rimraf dist && mkdirp && node buildIcons",
+        "build-icons": "rimraf dist && mkdirp dist types && node buildIcons",
         "build-example": "rimraf example && mkdirp example && babel-node --presets react,env buildExample",
         "semantic-release": "semantic-release",
         "prepare": "npm run build-icons"

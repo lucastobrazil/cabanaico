@@ -10,7 +10,6 @@ const pascalCase = compose(
     camelCase
 );
 const outputPath = path.resolve(__dirname, 'dist');
-const outputPathEs5 = path.resolve(__dirname, 'dist-es5');
 const outputPathTypings = path.resolve(__dirname, 'types');
 
 getAllIcons()
@@ -61,7 +60,7 @@ function writeIndex(icons) {
     const { code: codeEs5 } = transform(code, { plugins: ['transform-es2015-modules-commonjs'] });
     return Promise.all([
         writeFile(path.resolve(outputPath, fileName), code),
-        writeFile(path.resolve(outputPathEs5, fileName), codeEs5),
+        writeFile(path.resolve(outputPath, fileName), codeEs5),
     ]);
 }
 
@@ -71,7 +70,7 @@ function writeIcon([name, icon]) {
     const { code: codeEs5 } = transform(code, { plugins: ['transform-es2015-modules-commonjs'] });
     return Promise.all([
         writeFile(path.resolve(outputPath, fileName), code),
-        writeFile(path.resolve(outputPathEs5, fileName), codeEs5),
+        writeFile(path.resolve(outputPath, fileName), codeEs5),
     ]);
 }
 
