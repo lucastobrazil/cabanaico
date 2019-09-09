@@ -9,8 +9,8 @@ const pascalCase = compose(
     upperFirst,
     camelCase
 );
-const outputPath = path.resolve(__dirname, 'dist');
-const outputPathTypings = path.resolve(__dirname, 'types');
+const outputPath = path.resolve(__dirname, 'dist/');
+const outputPathTypings = path.resolve(__dirname, 'types/');
 
 getAllIcons()
     .then(write)
@@ -54,13 +54,13 @@ function write(icons) {
 }
 
 function writeIndex(icons) {
-    const fileName = 'index.js';
+    const fileName = (buildTarget) => `index.${buildTarget}.js`;
     const imports = map(([name]) => `export ${name} from './${name}';`)(icons);
-    const { code } = transform([...imports, '\n'].join('\n'), { plugins: ['transform-export-extensions'] });
+    const { code } = transform(imports.join('\n'), { plugins: ['transform-export-extensions'] });
     const { code: codeEs5 } = transform(code, { plugins: ['transform-es2015-modules-commonjs'] });
     return Promise.all([
-        writeFile(path.resolve(outputPath, fileName), code),
-        writeFile(path.resolve(outputPath, fileName), codeEs5),
+        writeFile(path.resolve(outputPath, fileName('esm')), code),
+        writeFile(path.resolve(outputPath, fileName('cjs')), codeEs5),
     ]);
 }
 

@@ -3,7 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { writeFileSync, readFileSync } from 'fs';
 import { map, toPairs, sortBy } from 'lodash/fp';
 import path from 'path';
-import * as icons from './dist';
+import * as icons from './dist/index.esm.js';
 
 writeFileSync(
     path.resolve(__dirname, 'example', (process.env.TRAVIS_COMMIT || 'index') + '.html'),
