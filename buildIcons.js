@@ -11,7 +11,7 @@ const pascalCase = compose(
 );
 const outputPath = path.resolve(__dirname, 'dist');
 const outputPathEs5 = path.resolve(__dirname, 'dist-es5');
-const outputPathTypings = path.resolve(__dirname, 'typings');
+const outputPathTypings = path.resolve(__dirname, 'types');
 
 getAllIcons()
     .then(write)
