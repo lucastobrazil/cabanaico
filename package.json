@@ -36,7 +36,7 @@
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
         "rimraf": "^2.6.2",
-        "semantic-release": "^15.13.12",
+        "semantic-release": "^17.2.3",
         "svgo": "^1.0.3"
     }
 }
